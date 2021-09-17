@@ -13,10 +13,25 @@
 	<version>0.0.1</version>
 	<name>consultaPesaje</name>
 	<description>Sistema de consulta de pesajes por placa</description>
+	<!-- INI para generar war para despliegue -->
+	<!--  <packaging>war</packaging>-->
+	<!-- FIN para generar war para despliegue -->
+	
 	<properties>
 		<java.version>16</java.version>
+		<local.repository.folder>${pom.basedir}/local-maven-repo/</local.repository.folder>
+		<!-- INI Para despliegue -->
+		<!-- <start-class>com.albo.SoaPesajeApplication</start-class>-->
+		<!-- FIN Para despliegue -->
 	</properties>
 	<dependencies>
+		<!-- INI Para despliegue -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>-->
+		<!-- FIN Para despliegue -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -37,13 +52,65 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency> 
+		    <groupId>org.springframework.boot</groupId> 
+		    <artifactId>spring-boot-starter-validation</artifactId> 
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-jwt</artifactId>
+			<version>1.0.10.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+			<version>2.3.5.RELEASE</version>
+		</dependency>
+		<!-- driver bd oracle -->
+		<dependency>
+			<groupId>com.local.oracle</groupId>
+			<artifactId>ojdbc7</artifactId>
+			<version>12.1.0</version>
+		</dependency>
+		<!-- driver bd postgres -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-install-plugin</artifactId>
+			    <executions>
+			        <execution>
+			        	<id>oracle</id>
+			        	<phase>install</phase>
+			            <goals>
+			                <goal>install-file</goal>
+			            </goals>
+			            <configuration>
+				            <groupId>com.local.oracle</groupId>
+							<artifactId>ojdbc7</artifactId>
+							<version>12.1.0</version>
+			                <packaging>jar</packaging>
+			                <file>${local.repository.folder}/ojdbc7.jar</file>
+			            </configuration>
+			        </execution>
+			    </executions>
 			</plugin>
 		</plugins>
 	</build>

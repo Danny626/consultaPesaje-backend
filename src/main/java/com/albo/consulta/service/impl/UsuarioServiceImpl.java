@@ -1,0 +1,82 @@
+package com.albo.consulta.service.impl;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+import com.albo.consulta.dao.IUsuarioDAO;
+import com.albo.consulta.model.Usuario;
+import com.albo.consulta.service.IUsuarioService;
+
+@Service
+public class UsuarioServiceImpl implements IUsuarioService {
+
+	@Autowired
+	private IUsuarioDAO dao;
+	
+	@Override
+	public List<Usuario> findAll() {
+		return dao.findAll();
+	}
+
+	@Override
+	public Optional<Usuario> findById(String id) {
+		return dao.findById(id);
+	}
+
+	@Override
+	public Usuario saveOrUpdate(Usuario t) {
+		return dao.save(t);
+	}
+
+	@Override
+	public Boolean deleteById(String id) {
+		if (!dao.existsById(id)) {
+			return false;
+		}
+		dao.deleteById(id);
+		return true;
+	}
+
+	@Override
+	public Page<Usuario> listarPageable(Pageable pageable) {
+		return dao.findAll(
+				PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("username").ascending()));
+	}
+
+	@Override
+	public Usuario listarPorUsername(String username) {
+		return dao.listarPorUsername(username);
+	}
+
+	@Override
+	public Page<Usuario> buscarXUsername(Pageable pageable, String username) {
+		return dao.buscarXNombre(
+				PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("username").ascending()),
+				username);
+	}
+
+	@Override
+	public byte[] leerArchivo(String pathFoto) {
+		Path path = Paths.get(pathFoto);
+		byte[] bArray = null;
+
+		try {
+			bArray = Files.readAllBytes(path);
+		} catch (IOException e) {
+			throw new RuntimeException("Error. El archivo no puede ser abierto porq no existe");
+		}
+		return bArray;
+	}
+
+}
