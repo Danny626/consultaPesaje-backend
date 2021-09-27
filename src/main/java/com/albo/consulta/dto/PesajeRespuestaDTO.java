@@ -3,15 +3,21 @@ package com.albo.consulta.dto;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.albo.consulta.model.Operacion;
+
 public class PesajeRespuestaDTO {
 
 	private Integer gestion;
+	private Integer codPesaje;
 	private String placa;
-	private BigDecimal peso;
+	private BigDecimal pesoBruto;
+	private BigDecimal pesoNeto;
+	private BigDecimal pesoTara;
 	private LocalDateTime fechaBlz;
 	private String usrCod;
 	private String observacion;
 	private Integer numeracion;
+	private Operacion operacion;
 	private String recintoCod;
 	
 	public Integer getGestion() {
@@ -44,12 +50,6 @@ public class PesajeRespuestaDTO {
 	public void setNumeracion(Integer numeracion) {
 		this.numeracion = numeracion;
 	}
-	public BigDecimal getPeso() {
-		return peso;
-	}
-	public void setPeso(BigDecimal peso) {
-		this.peso = peso;
-	}
 	public String getUsrCod() {
 		return usrCod;
 	}
@@ -61,6 +61,36 @@ public class PesajeRespuestaDTO {
 	}
 	public void setRecintoCod(String recintoCod) {
 		this.recintoCod = recintoCod;
+	}
+	public Integer getCodPesaje() {
+		return codPesaje;
+	}
+	public void setCodPesaje(Integer codPesaje) {
+		this.codPesaje = codPesaje;
+	}
+	public BigDecimal getPesoBruto() {
+		return pesoBruto;
+	}
+	public void setPesoBruto(BigDecimal pesoBruto) {
+		this.pesoBruto = pesoBruto;
+	}
+	public BigDecimal getPesoNeto() {
+		return pesoNeto;
+	}
+	public void setPesoNeto(BigDecimal pesoNeto) {
+		this.pesoNeto = pesoNeto;
+	}
+	public BigDecimal getPesoTara() {
+		return pesoTara;
+	}
+	public void setPesoTara(BigDecimal pesoTara) {
+		this.pesoTara = pesoTara;
+	}
+	public Operacion getOperacion() {
+		return operacion;
+	}
+	public void setOperacion(Operacion operacion) {
+		this.operacion = operacion;
 	}
 
 }

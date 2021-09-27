@@ -50,15 +50,16 @@ public class Usuario implements Serializable {
 	@Column(name = "estado", nullable = false)
 	private String state;
 
-	/* recinto al que pertenece el Usuario */
-//	@ManyToOne
-//	@JoinColumn(name = "REC_COD", nullable = false, referencedColumnName = "REC_COD")
-//	private Recinto recinto;
 
 	@ManyToOne
-	@JoinColumn(name = "ROL", nullable = false, referencedColumnName = "nombre")
+	@JoinColumn(name = "rol", nullable = false, referencedColumnName = "nombre")
 	private Rol rol;
 
+	/* recinto al que pertenece el Usuario */
+	@ManyToOne
+	@JoinColumn(name = "recinto", nullable = false, referencedColumnName = "rec_cod")
+	private Recinto recinto;
+	
 //	@JsonBackReference(value = "rol_join")
 //	@ManyToMany(fetch = FetchType.EAGER)
 //	@JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "usuario"), inverseJoinColumns = @JoinColumn(name = "id_rol", referencedColumnName = "nombre"))
@@ -154,6 +155,14 @@ public class Usuario implements Serializable {
 
 	public void setRol(Rol rol) {
 		this.rol = rol;
+	}
+
+	public Recinto getRecinto() {
+		return recinto;
+	}
+
+	public void setRecinto(Recinto recinto) {
+		this.recinto = recinto;
 	}
 
 }

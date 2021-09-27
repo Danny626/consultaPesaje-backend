@@ -26,14 +26,15 @@ public class LoginServiceImpl implements ILoginService{
 	}
 	
 	@Override
-	public Usuario verificarNombreUsuario(String usuario) throws Exception {
-		Usuario us = null;
-		try {
-			us = dao.verificarNombreUsuario(usuario);
-			us = us != null ? us : new Usuario();
-		} catch (Exception e) {
-			us = new Usuario();
-		}
-		return us;
+	public Usuario verificarNombreUsuario(String usuario, String estado) {
+//		Usuario us = null;
+//		try {
+//			us = dao.verificarNombreUsuario(usuario, estado);
+//			us = us != null ? us : new Usuario();
+//		} catch (Exception e) {
+//			us = new Usuario();
+//		}
+//		return us;
+		return dao.verificarNombreUsuario(usuario, estado);
 	}
 }

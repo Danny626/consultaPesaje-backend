@@ -11,18 +11,22 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.albo.consulta.dao.IUsuarioDAO;
+import com.albo.consulta.dao.ILoginDAO;
 import com.albo.consulta.model.Usuario;
 
 @Service("userDetailsService")
 public class UserServiceImpl implements UserDetailsService {
 
+//	@Autowired
+//	private IUsuarioDAO userDAO;
+	
 	@Autowired
-	private IUsuarioDAO userDAO;
+	private ILoginDAO loginDao;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Usuario user = userDAO.findOneByUsername(username);
+//		Usuario user = userDAO.findOneByUsername(username);
+		Usuario user = loginDao.verificarNombreUsuario(username, "ACT");
 
 		if (user == null) {
 			throw new UsernameNotFoundException(String.format("Usuario no existe", username));

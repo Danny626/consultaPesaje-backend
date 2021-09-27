@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.albo.consulta.model.Rol;
 import com.albo.consulta.model.Usuario;
+import com.albo.consulta.service.IRolService;
 import com.albo.consulta.service.IUsuarioService;
 import com.albo.exception.InternalException;
 import com.albo.exception.ModeloNotFoundException;
@@ -35,6 +37,9 @@ public class UsuarioController {
 
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;
+	
+	@Autowired
+	private IRolService rolService;
 
 	// @PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -80,6 +85,8 @@ public class UsuarioController {
 																					// @Size
 		Usuario obj = new Usuario();
 		usuario.setPassword(bcrypt.encode(usuario.getPassword()));
+		Rol rol = rolService.findById("USER").get();
+		usuario.setRol(rol);
 		obj = service.saveOrUpdate(usuario);
 		if (obj == null) {
 			throw new InternalException("Error al registrar");

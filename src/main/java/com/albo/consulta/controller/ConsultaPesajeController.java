@@ -20,6 +20,7 @@ import com.albo.ber.service.IPesajeSoaBerService;
 import com.albo.chb.service.IPesajeSoaChbService;
 import com.albo.consulta.dto.PesajeRespuestaBdDTO;
 import com.albo.consulta.dto.PesajeRespuestaDTO;
+import com.albo.consulta.service.IOperacionService;
 import com.albo.consulta.service.IRecintoService;
 import com.albo.pam.service.IPesajeSoaPamService;
 import com.albo.psg.service.IPesajeSoaPsgService;
@@ -60,6 +61,9 @@ public class ConsultaPesajeController {
 	
 	@Autowired
 	private IRecintoService recintoService;
+	
+	@Autowired
+	private IOperacionService operacionService;
 	
 	/**
 	 * Función q busca los pesajes por placa, fecha y recinto
@@ -167,17 +171,21 @@ public class ConsultaPesajeController {
 	
 	public List<PesajeRespuestaDTO> busquedaPesajes(List<PesajeRespuestaBdDTO> pesajes, String recintoCod) {
 		List<PesajeRespuestaDTO> pesajesRespuesta = new ArrayList<PesajeRespuestaDTO>();
-		PesajeRespuestaDTO pesajeRespuesta = new PesajeRespuestaDTO();
 		
 		pesajes.forEach(p -> {
+			PesajeRespuestaDTO pesajeRespuesta = new PesajeRespuestaDTO();
 			pesajeRespuesta.setFechaBlz(p.getPsjFechaBlz());
 			pesajeRespuesta.setGestion(p.getPsjGestion().intValue());
 			pesajeRespuesta.setNumeracion(p.getPsjNumeracion()!=null?p.getPsjNumeracion().intValue():null);
 			pesajeRespuesta.setObservacion(p.getPsjObservacion());
-			pesajeRespuesta.setPeso(p.getPsjPeso());
 			pesajeRespuesta.setPlaca(p.getPsjPlaca());
 			pesajeRespuesta.setRecintoCod(recintoCod);
 			pesajeRespuesta.setUsrCod(p.getUsrCod());
+			pesajeRespuesta.setCodPesaje(p.getPsjCod().intValue());
+			pesajeRespuesta.setPesoBruto(p.getPsjPeso());
+			pesajeRespuesta.setPesoNeto(p.getPsjNeto());
+			pesajeRespuesta.setPesoTara(p.getPsjTara());
+			pesajeRespuesta.setOperacion(operacionService.findById(p.getPsjOperacion()).get());
 			
 			pesajesRespuesta.add(pesajeRespuesta);
 		});

@@ -12,8 +12,11 @@ import com.albo.consulta.model.Usuario;
 @Repository
 public interface ILoginDAO extends JpaRepository<Usuario, String>  {
 	
-	@Query("FROM Usuario us where us.username = :usuario")
-	Usuario verificarNombreUsuario(@Param("usuario") String usuario) throws Exception;
+	@Query("FROM Usuario us WHERE us.username = :usuario AND us.state = :estado ")
+	Usuario verificarNombreUsuario(
+		@Param("usuario") String usuario, 
+		@Param("estado") String estado
+	);
 	
 	@Transactional
 	@Modifying

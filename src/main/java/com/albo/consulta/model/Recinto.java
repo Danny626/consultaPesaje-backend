@@ -1,13 +1,20 @@
 package com.albo.consulta.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "recinto", schema = "PUBLIC")
@@ -35,6 +42,10 @@ public class Recinto implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "adu_cod", referencedColumnName = "adu_cod")
 	private Aduana aduana;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "recinto")
+	private List<Usuario> usuario = new ArrayList<Usuario>();
 
 	/** fin campos bd **/
 
@@ -78,6 +89,22 @@ public class Recinto implements Serializable {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public Aduana getAduana() {
+		return aduana;
+	}
+
+	public void setAduana(Aduana aduana) {
+		this.aduana = aduana;
+	}
+
+	public List<Usuario> getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(List<Usuario> usuario) {
+		this.usuario = usuario;
 	}
 
 	/** fin getters y setters **/
