@@ -174,7 +174,7 @@ public class ConsultaPesajeController {
 		
 		pesajes.forEach(p -> {
 			PesajeRespuestaDTO pesajeRespuesta = new PesajeRespuestaDTO();
-			pesajeRespuesta.setFechaBlz(p.getPsjFechaBlz());
+			pesajeRespuesta.setFecha(p.getPsjFecha());
 			pesajeRespuesta.setGestion(p.getPsjGestion().intValue());
 			pesajeRespuesta.setNumeracion(p.getPsjNumeracion()!=null?p.getPsjNumeracion().intValue():null);
 			pesajeRespuesta.setObservacion(p.getPsjObservacion());

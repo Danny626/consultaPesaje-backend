@@ -13,7 +13,7 @@ public class PesajeRespuestaDTO {
 	private BigDecimal pesoBruto;
 	private BigDecimal pesoNeto;
 	private BigDecimal pesoTara;
-	private LocalDateTime fechaBlz;
+	private LocalDateTime fecha;
 	private String usrCod;
 	private String observacion;
 	private Integer numeracion;
@@ -31,12 +31,6 @@ public class PesajeRespuestaDTO {
 	}
 	public void setPlaca(String placa) {
 		this.placa = placa;
-	}
-	public LocalDateTime getFechaBlz() {
-		return fechaBlz;
-	}
-	public void setFechaBlz(LocalDateTime fechaBlz) {
-		this.fechaBlz = fechaBlz;
 	}
 	public String getObservacion() {
 		return observacion;
@@ -91,6 +85,12 @@ public class PesajeRespuestaDTO {
 	}
 	public void setOperacion(Operacion operacion) {
 		this.operacion = operacion;
+	}
+	public LocalDateTime getFecha() {
+		return fecha;
+	}
+	public void setFecha(LocalDateTime fecha) {
+		this.fecha = fecha;
 	}
 
 }

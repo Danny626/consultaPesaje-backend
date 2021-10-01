@@ -14,14 +14,15 @@
 	<name>consultaPesaje</name>
 	<description>Sistema de consulta de pesajes por placa</description>
 	<!-- INI para generar war para despliegue -->
-	<!--  <packaging>war</packaging>-->
+	<!-- <packaging>war</packaging> -->
 	<!-- FIN para generar war para despliegue -->
 	
 	<properties>
 		<java.version>16</java.version>
+		<nombre.final>consultaPesaje-backend</nombre.final>
 		<local.repository.folder>${pom.basedir}/local-maven-repo/</local.repository.folder>
 		<!-- INI Para despliegue -->
-		<!-- <start-class>com.albo.SoaPesajeApplication</start-class>-->
+		<!-- <start-class>com.albo.ConsultaPesajeApplication</start-class> -->
 		<!-- FIN Para despliegue -->
 	</properties>
 	<dependencies>
@@ -30,7 +31,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
-		</dependency>-->
+		</dependency> -->
 		<!-- FIN Para despliegue -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -85,7 +86,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>${project.artifactId}</finalName>
+		<finalName>${nombre.final}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

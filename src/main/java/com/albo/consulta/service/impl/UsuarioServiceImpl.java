@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.albo.consulta.dao.IUsuarioDAO;
 import com.albo.consulta.model.Usuario;
 import com.albo.consulta.service.IUsuarioService;
+import com.albo.exception.ModelAlreadyExistsException;
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {
@@ -36,6 +37,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
 	@Override
 	public Usuario saveOrUpdate(Usuario t) {
+		if ( dao.findById(t.getUsername()).isPresent() ) {
+			throw new ModelAlreadyExistsException("El usuario ya existe");
+		}
 		return dao.save(t);
 	}
 
