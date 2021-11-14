@@ -27,8 +27,7 @@ public class PesajeSoaChbServiceImpl implements IPesajeSoaChbService {
 
 	@Override
 	public Optional<Pesaje> findById(PesajePK id) {
-		// TODO Auto-generated method stub
-		return null;
+		return pesajeSoaDao.findById(id);
 	}
 
 	@Override

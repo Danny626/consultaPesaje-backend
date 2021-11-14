@@ -27,8 +27,7 @@ public class PesajeSoaWarServiceImpl implements IPesajeSoaWarService {
 
 	@Override
 	public Optional<Pesaje> findById(PesajePK id) {
-		// TODO Auto-generated method stub
-		return null;
+		return pesajeSoaDao.findById(id);
 	}
 
 	@Override

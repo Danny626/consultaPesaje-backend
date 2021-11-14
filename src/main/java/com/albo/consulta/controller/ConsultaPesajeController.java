@@ -1,9 +1,11 @@
 package com.albo.consulta.controller;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,6 +22,8 @@ import com.albo.ber.service.IPesajeSoaBerService;
 import com.albo.chb.service.IPesajeSoaChbService;
 import com.albo.consulta.dto.PesajeRespuestaBdDTO;
 import com.albo.consulta.dto.PesajeRespuestaDTO;
+import com.albo.consulta.model.Recinto;
+import com.albo.consulta.service.IBoletaService;
 import com.albo.consulta.service.IOperacionService;
 import com.albo.consulta.service.IRecintoService;
 import com.albo.pam.service.IPesajeSoaPamService;
@@ -64,6 +68,9 @@ public class ConsultaPesajeController {
 	
 	@Autowired
 	private IOperacionService operacionService;
+	
+	@Autowired
+	private IBoletaService boletaService;
 	
 	/**
 	 * Función q busca los pesajes por placa, fecha y recinto
@@ -158,6 +165,122 @@ public class ConsultaPesajeController {
 		}
 		
 		return new ResponseEntity<List<PesajeRespuestaDTO>>(pesajesRespuesta, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/imprimirBoleta/{gestion}/{codPesaje}/{recintoCod}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public ResponseEntity<?> imprimirBoleta(
+			@PathVariable("gestion") BigInteger gestion,
+			@PathVariable("codPesaje") BigInteger codPesaje,
+			@PathVariable("recintoCod") String recintoCod) {
+		
+		byte[] data = null;
+		
+		Recinto recinto = new Recinto();
+		recinto = this.recintoService.findById(recintoCod).get();
+		
+		switch (recintoCod) {
+		case "BER01": {
+			com.albo.ber.model.PesajePK pesajePk = new com.albo.ber.model.PesajePK(gestion, codPesaje);
+			Optional<com.albo.ber.model.Pesaje> psj = this.berService.findById(pesajePk);
+			
+			if ( psj.isEmpty() ) {
+				return new ResponseEntity<String>("Error. El registro de pesaje no existe", HttpStatus.BAD_REQUEST);
+			}
+			
+			data = this.boletaService.generarBoleta(psj.get().getPsjPeso().toString(), psj.get().getPsjTara().toString(), 
+					psj.get().getPsjNeto().toString(), psj.get().getPsjPlaca().toString(), psj.get().getPsjObservacion().toString(), recinto.getNombre(), psj.get().getUsrCod());
+			break;
+		}
+		case "CHB01": {
+			com.albo.chb.model.PesajePK pesajePk = new com.albo.chb.model.PesajePK(gestion, codPesaje);
+			Optional<com.albo.chb.model.Pesaje> psj = this.chbService.findById(pesajePk);
+			
+			if ( psj.isEmpty() ) {
+				return new ResponseEntity<String>("Error. El registro de pesaje no existe", HttpStatus.BAD_REQUEST);
+			}
+			
+			data = this.boletaService.generarBoleta(psj.get().getPsjPeso().toString(), psj.get().getPsjTara().toString(), 
+					psj.get().getPsjNeto().toString(), psj.get().getPsjPlaca().toString(), psj.get().getPsjObservacion().toString(), recinto.getNombre(), psj.get().getUsrCod());
+			break;
+		}
+		case "PAM01": {
+			com.albo.pam.model.PesajePK pesajePk = new com.albo.pam.model.PesajePK(gestion, codPesaje);
+			Optional<com.albo.pam.model.Pesaje> psj = this.pamService.findById(pesajePk);
+			
+			if ( psj.isEmpty() ) {
+				return new ResponseEntity<String>("Error. El registro de pesaje no existe", HttpStatus.BAD_REQUEST);
+			}
+			
+			data = this.boletaService.generarBoleta(psj.get().getPsjPeso().toString(), psj.get().getPsjTara().toString(), 
+					psj.get().getPsjNeto().toString(), psj.get().getPsjPlaca().toString(), psj.get().getPsjObservacion().toString(), recinto.getNombre(), psj.get().getUsrCod());
+			break;
+		}
+		case "PSG01": {
+			com.albo.psg.model.PesajePK pesajePk = new com.albo.psg.model.PesajePK(gestion, codPesaje);
+			Optional<com.albo.psg.model.Pesaje> psj = this.psgService.findById(pesajePk);
+			
+			if ( psj.isEmpty() ) {
+				return new ResponseEntity<String>("Error. El registro de pesaje no existe", HttpStatus.BAD_REQUEST);
+			}
+			
+			data = this.boletaService.generarBoleta(psj.get().getPsjPeso().toString(), psj.get().getPsjTara().toString(), 
+					psj.get().getPsjNeto().toString(), psj.get().getPsjPlaca().toString(), psj.get().getPsjObservacion().toString(), recinto.getNombre(), psj.get().getUsrCod());
+			break;
+		}
+		case "TAM01": {
+			com.albo.tam.model.PesajePK pesajePk = new com.albo.tam.model.PesajePK(gestion, codPesaje);
+			Optional<com.albo.tam.model.Pesaje> psj = this.tamService.findById(pesajePk);
+			
+			if ( psj.isEmpty() ) {
+				return new ResponseEntity<String>("Error. El registro de pesaje no existe", HttpStatus.BAD_REQUEST);
+			}
+			
+			data = this.boletaService.generarBoleta(psj.get().getPsjPeso().toString(), psj.get().getPsjTara().toString(), 
+					psj.get().getPsjNeto().toString(), psj.get().getPsjPlaca().toString(), psj.get().getPsjObservacion().toString(), recinto.getNombre(), psj.get().getUsrCod());
+			break;
+		}
+		case "VIL01": {
+			com.albo.vil.model.PesajePK pesajePk = new com.albo.vil.model.PesajePK(gestion, codPesaje);
+			Optional<com.albo.vil.model.Pesaje> psj = this.vilService.findById(pesajePk);
+			
+			if ( psj.isEmpty() ) {
+				return new ResponseEntity<String>("Error. El registro de pesaje no existe", HttpStatus.BAD_REQUEST);
+			}
+			
+			data = this.boletaService.generarBoleta(psj.get().getPsjPeso().toString(), psj.get().getPsjTara().toString(), 
+					psj.get().getPsjNeto().toString(), psj.get().getPsjPlaca().toString(), psj.get().getPsjObservacion().toString(), recinto.getNombre(), psj.get().getUsrCod());
+			break;
+		}
+		case "SCZ07": {
+			com.albo.war.model.PesajePK pesajePk = new com.albo.war.model.PesajePK(gestion, codPesaje);
+			Optional<com.albo.war.model.Pesaje> psj = this.warService.findById(pesajePk);
+			
+			if ( psj.isEmpty() ) {
+				return new ResponseEntity<String>("Error. El registro de pesaje no existe", HttpStatus.BAD_REQUEST);
+			}
+			
+			data = this.boletaService.generarBoleta(psj.get().getPsjPeso().toString(), psj.get().getPsjTara().toString(), 
+					psj.get().getPsjNeto().toString(), psj.get().getPsjPlaca().toString(), psj.get().getPsjObservacion().toString(), recinto.getNombre(), psj.get().getUsrCod());
+			break;
+		}
+		case "YAC01": {
+			com.albo.yac.model.PesajePK pesajePk = new com.albo.yac.model.PesajePK(gestion, codPesaje);
+			Optional<com.albo.yac.model.Pesaje> psj = this.yacService.findById(pesajePk);
+			
+			if ( psj.isEmpty() ) {
+				return new ResponseEntity<String>("Error. El registro de pesaje no existe", HttpStatus.BAD_REQUEST);
+			}
+			
+			data = this.boletaService.generarBoleta(psj.get().getPsjPeso().toString(), psj.get().getPsjTara().toString(), 
+					psj.get().getPsjNeto().toString(), psj.get().getPsjPlaca().toString(), psj.get().getPsjObservacion().toString(), recinto.getNombre(), psj.get().getUsrCod());
+			break;
+		}
+		default:
+			return new ResponseEntity<String>("Error. Código de recinto sin tratamiento", HttpStatus.BAD_REQUEST);
+		}
+		
+		return new ResponseEntity<byte[]>(data, HttpStatus.OK);
+		
 	}
 	
 	/**
