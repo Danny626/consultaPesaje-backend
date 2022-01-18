@@ -187,8 +187,9 @@ public class ConsultaPesajeController {
 				return new ResponseEntity<String>("Error. El registro de pesaje no existe", HttpStatus.BAD_REQUEST);
 			}
 			
-			data = this.boletaService.generarBoleta(psj.get().getPsjPeso().toString(), psj.get().getPsjTara().toString(), 
-					psj.get().getPsjNeto().toString(), psj.get().getPsjPlaca().toString(), psj.get().getPsjObservacion().toString(), recinto.getNombre(), psj.get().getUsrCod());
+			data = this.boletaService.generarBoletaNueva(recinto.getNombre(), 
+					Integer.valueOf(codPesaje.toString()), psj.get().getPsjFecha(), 
+					psj.get().getPsjPeso(),	psj.get().getPsjPlaca());
 			break;
 		}
 		case "CHB01": {
@@ -199,8 +200,9 @@ public class ConsultaPesajeController {
 				return new ResponseEntity<String>("Error. El registro de pesaje no existe", HttpStatus.BAD_REQUEST);
 			}
 			
-			data = this.boletaService.generarBoleta(psj.get().getPsjPeso().toString(), psj.get().getPsjTara().toString(), 
-					psj.get().getPsjNeto().toString(), psj.get().getPsjPlaca().toString(), psj.get().getPsjObservacion().toString(), recinto.getNombre(), psj.get().getUsrCod());
+			data = this.boletaService.generarBoletaNueva(recinto.getNombre(), 
+					Integer.valueOf(codPesaje.toString()), psj.get().getPsjFecha(), 
+					psj.get().getPsjPeso(),	psj.get().getPsjPlaca());
 			break;
 		}
 		case "PAM01": {
@@ -211,8 +213,9 @@ public class ConsultaPesajeController {
 				return new ResponseEntity<String>("Error. El registro de pesaje no existe", HttpStatus.BAD_REQUEST);
 			}
 			
-			data = this.boletaService.generarBoleta(psj.get().getPsjPeso().toString(), psj.get().getPsjTara().toString(), 
-					psj.get().getPsjNeto().toString(), psj.get().getPsjPlaca().toString(), psj.get().getPsjObservacion().toString(), recinto.getNombre(), psj.get().getUsrCod());
+			data = this.boletaService.generarBoletaNueva(recinto.getNombre(), 
+					Integer.valueOf(codPesaje.toString()), psj.get().getPsjFecha(), 
+					psj.get().getPsjPeso(),	psj.get().getPsjPlaca());
 			break;
 		}
 		case "PSG01": {
@@ -223,8 +226,9 @@ public class ConsultaPesajeController {
 				return new ResponseEntity<String>("Error. El registro de pesaje no existe", HttpStatus.BAD_REQUEST);
 			}
 			
-			data = this.boletaService.generarBoleta(psj.get().getPsjPeso().toString(), psj.get().getPsjTara().toString(), 
-					psj.get().getPsjNeto().toString(), psj.get().getPsjPlaca().toString(), psj.get().getPsjObservacion().toString(), recinto.getNombre(), psj.get().getUsrCod());
+			data = this.boletaService.generarBoletaNueva(recinto.getNombre(), 
+					Integer.valueOf(codPesaje.toString()), psj.get().getPsjFecha(), 
+					psj.get().getPsjPeso(),	psj.get().getPsjPlaca());
 			break;
 		}
 		case "TAM01": {
@@ -235,8 +239,9 @@ public class ConsultaPesajeController {
 				return new ResponseEntity<String>("Error. El registro de pesaje no existe", HttpStatus.BAD_REQUEST);
 			}
 			
-			data = this.boletaService.generarBoleta(psj.get().getPsjPeso().toString(), psj.get().getPsjTara().toString(), 
-					psj.get().getPsjNeto().toString(), psj.get().getPsjPlaca().toString(), psj.get().getPsjObservacion().toString(), recinto.getNombre(), psj.get().getUsrCod());
+			data = this.boletaService.generarBoletaNueva(recinto.getNombre(), 
+					Integer.valueOf(codPesaje.toString()), psj.get().getPsjFecha(), 
+					psj.get().getPsjPeso(),	psj.get().getPsjPlaca());
 			break;
 		}
 		case "VIL01": {
@@ -247,8 +252,9 @@ public class ConsultaPesajeController {
 				return new ResponseEntity<String>("Error. El registro de pesaje no existe", HttpStatus.BAD_REQUEST);
 			}
 			
-			data = this.boletaService.generarBoleta(psj.get().getPsjPeso().toString(), psj.get().getPsjTara().toString(), 
-					psj.get().getPsjNeto().toString(), psj.get().getPsjPlaca().toString(), psj.get().getPsjObservacion().toString(), recinto.getNombre(), psj.get().getUsrCod());
+			data = this.boletaService.generarBoletaNueva(recinto.getNombre(), 
+					Integer.valueOf(codPesaje.toString()), psj.get().getPsjFecha(), 
+					psj.get().getPsjPeso(),	psj.get().getPsjPlaca());
 			break;
 		}
 		case "SCZ07": {
@@ -259,8 +265,9 @@ public class ConsultaPesajeController {
 				return new ResponseEntity<String>("Error. El registro de pesaje no existe", HttpStatus.BAD_REQUEST);
 			}
 			
-			data = this.boletaService.generarBoleta(psj.get().getPsjPeso().toString(), psj.get().getPsjTara().toString(), 
-					psj.get().getPsjNeto().toString(), psj.get().getPsjPlaca().toString(), psj.get().getPsjObservacion().toString(), recinto.getNombre(), psj.get().getUsrCod());
+			data = this.boletaService.generarBoletaNueva(recinto.getNombre(), 
+					Integer.valueOf(codPesaje.toString()), psj.get().getPsjFecha(), 
+					psj.get().getPsjPeso(),	psj.get().getPsjPlaca());
 			break;
 		}
 		case "YAC01": {
@@ -271,8 +278,9 @@ public class ConsultaPesajeController {
 				return new ResponseEntity<String>("Error. El registro de pesaje no existe", HttpStatus.BAD_REQUEST);
 			}
 			
-			data = this.boletaService.generarBoleta(psj.get().getPsjPeso().toString(), psj.get().getPsjTara().toString(), 
-					psj.get().getPsjNeto().toString(), psj.get().getPsjPlaca().toString(), psj.get().getPsjObservacion().toString(), recinto.getNombre(), psj.get().getUsrCod());
+			data = this.boletaService.generarBoletaNueva(recinto.getNombre(), 
+					Integer.valueOf(codPesaje.toString()), psj.get().getPsjFecha(), 
+					psj.get().getPsjPeso(),	psj.get().getPsjPlaca());
 			break;
 		}
 		default:

@@ -1,6 +1,8 @@
 package com.albo.consulta.service.impl;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +23,7 @@ public class BoletaServiceimpl implements IBoletaService {
 			String nombreRecinto, String nombreUsuario) {
 		byte[] data = null;
 		try {
-			File file = new ClassPathResource("/reports/boletaReport.jasper").getFile();
+			File file = new ClassPathResource("/reports/boletaReport_original.jasper").getFile();
 			Map<String, Object> map = new HashMap<>();
 			map.put("recinto", nombreRecinto);
 			map.put("usuario", nombreUsuario);
@@ -30,6 +32,26 @@ public class BoletaServiceimpl implements IBoletaService {
 			map.put("pesoNeto", pesoNeto);
 			map.put("placa", placa);
 			map.put("obs", obs);
+			JasperPrint print = JasperFillManager.fillReport(file.getPath(), map);
+			data = JasperExportManager.exportReportToPdf(print);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
+
+	@Override
+	public byte[] generarBoletaNueva(String nombreRecinto, Integer codPesaje, LocalDateTime fecha, BigDecimal pesoBruto,
+			String placa) {
+		byte[] data = null;
+		try {
+			File file = new ClassPathResource("/reports/boletaPesaje.jasper").getFile();
+			Map<String, Object> map = new HashMap<>();
+			map.put("recinto", nombreRecinto);
+			map.put("codPesaje", codPesaje);
+			map.put("fecha", fecha);
+			map.put("pesoBruto", pesoBruto);
+			map.put("placa", placa);
 			JasperPrint print = JasperFillManager.fillReport(file.getPath(), map);
 			data = JasperExportManager.exportReportToPdf(print);
 		} catch (Exception e) {
