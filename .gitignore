@@ -34,3 +34,7 @@ build/
 
 ### environment variables ###
 .env
+
+### pass ###
+passwords
+
